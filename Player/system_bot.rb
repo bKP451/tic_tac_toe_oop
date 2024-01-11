@@ -1,0 +1,3 @@
+class SystemBot < Player
+  
+end

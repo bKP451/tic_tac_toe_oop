@@ -1,6 +1,6 @@
 # Tic Tac Toe
 
-Phase I 
+Version 1.0.0 
 
 - A single player will play with the system
 
