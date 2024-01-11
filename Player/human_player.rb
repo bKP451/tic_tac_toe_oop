@@ -9,7 +9,7 @@ class HumanPlayer < Player
   def selects_box
     puts 'Enter the box number to match you pattern in the next line '
     player_step = gets.chomp
-    @human_player_steps << player_step
+    @human_player_steps << player_step.to_i
     player_step.to_i - 1
   end
 end

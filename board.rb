@@ -1,5 +1,5 @@
 class Board
-  attr_accessor :current_game_boxes
+  attr_accessor :current_game_boxes, :number_hints
 
   def initialize
     @number_hints = [1, 2, 3, 4, 5, 6, 7, 8, 9]
