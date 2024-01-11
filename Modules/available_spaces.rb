@@ -1,0 +1,5 @@
+module AvailableSpaces
+  def available_spaces(current_game_boxes) 
+    current_game_boxes.map.with_index { |box, idx| idx + 1 if box.empty? } - [nil]
+  end
+end

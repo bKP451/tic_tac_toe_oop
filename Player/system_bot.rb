@@ -1,10 +1,17 @@
+require_relative '../Modules/available_spaces'
+
 class SystemBot < Player
-  def available_spaces(current_game_boxes) 
-    current_game_boxes.map.with_index { |box, idx| idx + 1 if box.empty? } - [nil]
+  include AvailableSpaces
+
+  attr_accessor :system_bot_steps
+  def initialize
+    @system_bot_steps = []
   end
 
-  def system_selects_box(current_game_boxes)
+  def selects_box(current_game_boxes)
     available_spaces = available_spaces(current_game_boxes)
-    available_spaces.shuffle.first
+    system_step = available_spaces.shuffle.first
+    @system_bot_steps << system_step
+    system_step - 1
   end
 end
