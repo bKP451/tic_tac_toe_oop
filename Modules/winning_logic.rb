@@ -14,7 +14,6 @@ module WinningLogic
   end
 
   def check_for_winner(game, current_game_boxes)
-    puts "current game boxes is #{current_game_boxes}"
     if current_game_boxes[0] == current_game_boxes[1] && current_game_boxes[1] == current_game_boxes[2]
       result(game, current_game_boxes[0])
 
@@ -38,7 +37,7 @@ module WinningLogic
 
     elsif current_game_boxes[2] == current_game_boxes[4] && current_game_boxes[4] == current_game_boxes[6]
       result(game, current_game_boxes[4])
-    elsif game.available_spaces_count(current_game_boxes) == 0
+    elsif game.available_spaces_count(current_game_boxes).zero?
       puts "Game Tied"
       game.game_running = false
     end
