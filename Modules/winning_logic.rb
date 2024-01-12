@@ -1,13 +1,14 @@
 require_relative './available_spaces'
+require_relative '../colors'
 
 module WinningLogic
   include AvailableSpaces
 
   def result(game, single_box)
     if single_box == 'X'
-      puts 'Human Player won'
+      puts "Human Player won\n ------------------".green
     else 
-      puts 'Systm Bot won'
+      puts "Systm Bot won\n ------------------".blue
     end
     game.board.display_current_grid
     game.game_running = false
@@ -38,7 +39,7 @@ module WinningLogic
     elsif current_game_boxes[2] == current_game_boxes[4] && current_game_boxes[4] == current_game_boxes[6]
       result(game, current_game_boxes[4])
     elsif game.available_spaces_count(current_game_boxes).zero?
-      puts "Game Tied"
+      puts 'Game Tied\n ------------------'
       game.game_running = false
     end
 

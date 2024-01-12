@@ -1,7 +1,5 @@
 require_relative 'game'
-
-game = Game.new
-tic_tac_board = game.board
+require_relative 'colors'
 
 def human_plays(game, current_boxes)
   player_step = game.human_player.selects_box(current_boxes)
@@ -15,15 +13,23 @@ def system_plays(game, board)
   board.number_hints[system_step] = ''
 end
 
-while game.game_running
-  system('clear')
-  tic_tac_board.display_current_grid
-  tic_tac_board.clues_grid
-  human_plays(game, tic_tac_board.current_game_boxes)
-  if game.available_spaces_count(tic_tac_board.current_game_boxes) > 1 
-    system_plays(game, tic_tac_board)
-  end 
-  if game.available_spaces(tic_tac_board.current_game_boxes).count < 5
-    game.check_for_winner(game, tic_tac_board.current_game_boxes)
+continue_playing = 'Y'
+until continue_playing == 'N' do
+  game = Game.new
+  tic_tac_board = game.board
+  while game.game_running
+    system('clear')
+    tic_tac_board.display_current_grid
+    tic_tac_board.clues_grid
+    human_plays(game, tic_tac_board.current_game_boxes)
+    if game.available_spaces_count(tic_tac_board.current_game_boxes) > 1 
+      system_plays(game, tic_tac_board.current_game_boxes)
+    end 
+    if game.available_spaces(tic_tac_board.current_game_boxes).count < 5
+      game.check_for_winner(game, tic_tac_board.current_game_boxes)
+    end
   end
+
+  puts 'Press any key expect n/N to continue playing'.red
+  continue_playing = gets.chomp.upcase
 end
