@@ -5,10 +5,10 @@ module WinningLogic
   include AvailableSpaces
 
   def result(game, single_box)
-    if single_box == 'X'
+    if single_box == 'X'.blue
       puts "Human Player won\n ------------------".green
     else 
-      puts "Systm Bot won\n ------------------".blue
+      puts "System Bot won\n ------------------".blue
     end
     game.board.display_current_grid
     game.game_running = false
@@ -39,12 +39,9 @@ module WinningLogic
     elsif current_game_boxes[2] == current_game_boxes[4] && current_game_boxes[4] == current_game_boxes[6]
       result(game, current_game_boxes[4])
     elsif game.available_spaces_count(current_game_boxes).zero?
-      puts 'Game Tied\n ------------------'
+      puts "Game Tied\n ------------------"
+      game.board.display_current_grid
       game.game_running = false
     end
-
   end
-
-
-  
 end
