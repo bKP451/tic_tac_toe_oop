@@ -1,31 +1,50 @@
+require_relative './available_spaces'
+
 module WinningLogic
-  
-  def check_for_winner(game, available_spaces)
-    winning_combination = [
-      [1, 2, 3],
-      [4, 5, 6],
-      [7, 8, 9],
-      [1, 4, 7],
-      [2, 5, 8],
-      [3, 6, 9],
-      [1, 5, 9],
-      [3, 5, 7]
-    ]
-    puts "human steps #{game.human_player.human_player_steps}"
-    if winning_combination.include?(game.human_player.human_player_steps)
+  include AvailableSpaces
+
+  def result(game, single_box)
+    if single_box == 'X'
       puts 'Human Player won'
-      game.game_running = false
-    elsif winning_combination.include?(game.system_bot.system_bot_steps)
-      puts 'System Won'
-      game.game_running = true
-    elsif available_spaces < 2 
-      puts "Tie"
+    else 
+      puts 'Systm Bot won'
     end
+    game.board.display_current_grid
+    game.game_running = false
   end
 
-  # def traced_player_steps(human_steps, system_bot_steps)
-  #   # puts "Hi I am the player steps"
-  #   puts "Hi I am the human steps #{human_steps}"
-  #   puts "Hi I am the system steps #{system_bot_steps}"
-  # end
+  def check_for_winner(game, current_game_boxes)
+    puts "current game boxes is #{current_game_boxes}"
+    if current_game_boxes[0] == current_game_boxes[1] && current_game_boxes[1] == current_game_boxes[2]
+      result(game, current_game_boxes[0])
+
+    elsif current_game_boxes[3] == current_game_boxes[4] && current_game_boxes[4] == current_game_boxes[5]
+      result(game, current_game_boxes[3])
+
+    elsif current_game_boxes[6] == current_game_boxes[7] && current_game_boxes[7] == current_game_boxes[8]
+      result(game, current_game_boxes[7])
+
+    elsif current_game_boxes[0] == current_game_boxes[3] && current_game_boxes[3] == current_game_boxes[6]
+      result(game, current_game_boxes[0])
+
+    elsif current_game_boxes[1] == current_game_boxes[4] && current_game_boxes[4] == current_game_boxes[7]
+      result(game, current_game_boxes[1])
+
+    elsif current_game_boxes[2] == current_game_boxes[5] && current_game_boxes[5] == current_game_boxes[8]
+      result(game, current_game_boxes[2])
+
+    elsif current_game_boxes[0] == current_game_boxes[4] && current_game_boxes[4] == current_game_boxes[8]
+      result(game, current_game_boxes[0])
+
+    elsif current_game_boxes[2] == current_game_boxes[4] && current_game_boxes[4] == current_game_boxes[6]
+      result(game, current_game_boxes[4])
+    elsif game.available_spaces_count(current_game_boxes) == 0
+      puts "Game Tied"
+      game.game_running = false
+    end
+
+  end
+
+
+  
 end
